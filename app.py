@@ -1,29 +1,38 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
+import sqlite3
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///messages.db'
-db = SQLAlchemy(app)
 
-class Message(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.String(100))
-    content = db.Column(db.Text)
+def create_table():
+    conn = sqlite3.connect('messages.db')
+    cur = conn.cursor()
+    cur.execute('''CREATE TABLE IF NOT EXISTS messages
+                (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                author TEXT,
+                content TEXT)''')
+    conn.commit()
+    conn.close()
 
 @app.route('/')
 def index():
-    messages = Message.query.all()
+    conn = sqlite3.connect('messages.db')
+    cur = conn.cursor()
+    cur.execute('''SELECT * FROM messages''')
+    messages = cur.fetchall()
+    conn.close()
     return render_template('index.html', messages=messages)
 
 @app.route('/post', methods=['POST'])
 def post():
     author = request.form['author']
     content = request.form['content']
-    message = Message(author=author, content=content)
-    db.session.add(message)
-    db.session.commit()
+    conn = sqlite3.connect('messages.db')
+    cur = conn.cursor()
+    cur.execute('''INSERT INTO messages (author, content) VALUES (?, ?)''', (author, content))
+    conn.commit()
+    conn.close()
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    db.create_all()
+    create_table()
     app.run(debug=True)
