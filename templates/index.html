@@ -3,25 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog with Message Board</title>
+    <title>留言板</title>
 </head>
 <body>
-    <h1>Welcome to My Blog with Message Board</h1>
-    
-    <h2>Messages</h2>
-    <ul>
-    {% for message in messages %}
-        <li>{{ message.author }}: {{ message.content }}</li>
-    {% endfor %}
-    </ul>
-
-    <h2>Leave a Message</h2>
+    <h1>留言板</h1>
     <form action="/post" method="post">
-        <label for="author">Author:</label><br>
+        <label for="author">作者:</label><br>
         <input type="text" id="author" name="author"><br>
-        <label for="content">Content:</label><br>
+        <label for="content">內容:</label><br>
         <textarea id="content" name="content"></textarea><br>
-        <button type="submit">Submit</button>
+        <button type="submit">發布</button>
     </form>
+    <h2>留言列表</h2>
+    <ul>
+        {% for message in messages %}
+            <li><strong>{{ message.author }}</strong>: {{ message.content }}</li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
