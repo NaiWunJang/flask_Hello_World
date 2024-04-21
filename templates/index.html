@@ -18,6 +18,8 @@
     <ul>
         {% for message in messages %}
             <li><strong>{{ message.author }}</strong>: {{ message.content }}</li>
+      <img src="{{ url_for('static', filename='Miffy_photo_2024-04-21 12.45.53.jepg') }}" alt="圖片">
+
         {% endfor %}
     </ul>
 </body>
