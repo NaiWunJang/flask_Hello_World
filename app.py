@@ -1,24 +1,29 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///messages.db'
+db = SQLAlchemy(app)
 
-# 首頁
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    author = db.Column(db.String(100))
+    content = db.Column(db.Text)
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    messages = Message.query.all()
+    return render_template('index.html', messages=messages)
 
-# 文章頁面
-@app.route('/post/<int:post_id>')
-def post(post_id):
-    # 這裡可以添加從數據庫中獲取特定文章的邏輯
-    # 例如，你可以從數據庫中根據 post_id 獲取文章的標題、內容等信息
-    # 在這個示例中，我們直接將 post_id 傳遞給模板
-    return render_template('post.html', post_id=post_id)
-
-# 關於頁面
-@app.route('/about')
-def about():
-    return render_template('about.html')
+@app.route('/post', methods=['POST'])
+def post():
+    author = request.form['author']
+    content = request.form['content']
+    message = Message(author=author, content=content)
+    db.session.add(message)
+    db.session.commit()
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
+    db.create_all()
     app.run(debug=True)

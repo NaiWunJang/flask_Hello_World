@@ -3,11 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
+    <title>My Blog with Message Board</title>
 </head>
 <body>
-    <h1>Welcome to My Blog</h1>
-    <p>This is the home page of my blog.</p>
-    <p><a href="/about">About Me</a></p>
+    <h1>Welcome to My Blog with Message Board</h1>
+    
+    <h2>Messages</h2>
+    <ul>
+    {% for message in messages %}
+        <li>{{ message.author }}: {{ message.content }}</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Leave a Message</h2>
+    <form action="/post" method="post">
+        <label for="author">Author:</label><br>
+        <input type="text" id="author" name="author"><br>
+        <label for="content">Content:</label><br>
+        <textarea id="content" name="content"></textarea><br>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
