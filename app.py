@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
-from Crypto.PublicKey import RSA
-from Crypto.Cipher import PKCS1_OAEP
+import hashlib
+import ecdsa
 
 app = Flask(__name__)
 
@@ -11,16 +11,16 @@ def index():
 @app.route('/encrypt', methods=['POST'])
 def encrypt():
     message = request.form.get('message')
+    private_key = ecdsa.SigningKey.generate()  # 生成私鑰
+    public_key = private_key.get_verifying_key()  # 從私鑰獲取公鑰
 
-    # 生成 RSA 密鑰對
-    key = RSA.generate(2048)
-    public_key = key.publickey()
+    # 將消息進行 SHA-256 哈希
+    hashed_message = hashlib.sha256(message.encode()).hexdigest()
 
-    # 使用公鑰對消息進行加密
-    cipher = PKCS1_OAEP.new(public_key)
-    encrypted_message = cipher.encrypt(message.encode())
+    # 使用私鑰對哈希值進行簽名
+    signature = private_key.sign(hashed_message.encode())
 
-    return render_template('result.html', message=message, public_key=public_key.export_key().decode(), encrypted_message=encrypted_message.hex())
+    return render_template('result.html', message=message, public_key=public_key, signature=signature)
 
 if __name__ == '__main__':
     app.run(debug=True)
