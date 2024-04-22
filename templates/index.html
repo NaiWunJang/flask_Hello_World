@@ -3,24 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>留言板</title>
+    <title>Hash Function Demo</title>
 </head>
 <body>
-    <h1>留言板</h1>
-    <form action="/post" method="post">
-        <label for="author">作者:</label><br>
-        <input type="text" id="author" name="author"><br>
-        <label for="content">內容:</label><br>
-        <textarea id="content" name="content"></textarea><br>
-        <button type="submit">發布</button>
+    <h1>Hash Function Demo</h1>
+    <form action="/" method="post">
+        <label for="data">Enter data to hash:</label><br>
+        <input type="text" id="data" name="data"><br><br>
+        <button type="submit">Calculate Hash</button>
     </form>
-    <h2>留言列表</h2>
-    <ul>
-        {% for message in messages %}
-            <li><strong>{{ message.author }}</strong>: {{ message.content }}</li>
-      <img src="{{ url_for('static', filename='cartoon_Trump.jpg') }}" alt="圖片">
-
-        {% endfor %}
-    </ul>
 </body>
 </html>
