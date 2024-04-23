@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hash Functions</title>
+    <title>Cryptographic Hash Function Demo</title>
 </head>
 <body>
-    <h1>Hash Functions Demo</h1>
-    <form action="/hash" method="post">
+    <h1>Cryptographic Hash Function Demo</h1>
+    <form action="/" method="post">
         <label for="text">Enter text to hash:</label>
         <input type="text" id="text" name="text">
         <button type="submit">Hash</button>
     </form>
-    <form action="/sha256" method="post">
-        <label for="text">Enter text for SHA-256:</label>
-        <input type="text" id="text" name="text">
-        <button type="submit">SHA-256</button>
-    </form>
+    {% if md5_hash %}
+    <h2>Results:</h2>
+    <p>Text: {{ text }}</p>
+    <p>MD5: {{ md5_hash }}</p>
+    <p>SHA-256: {{ sha256_hash }}</p>
+    {% endif %}
 </body>
 </html>

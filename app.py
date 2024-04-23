@@ -3,21 +3,17 @@ import hashlib
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/hash', methods=['POST'])
+@app.route('/', methods=['GET', 'POST'])
 def hash_text():
-    text = request.form['text']
-    hash_result = hashlib.sha256(text.encode()).hexdigest()
-    return render_template('hash_result.html', text=text, hash_result=hash_result)
+    md5_hash = None
+    sha256_hash = None
 
-@app.route('/sha256', methods=['POST'])
-def sha256_text():
-    text = request.form['text']
-    sha256_result = hashlib.sha256(text.encode()).hexdigest()
-    return render_template('sha256_result.html', text=text, sha256_result=sha256_result)
+    if request.method == 'POST':
+        text = request.form['text']
+        md5_hash = hashlib.md5(text.encode()).hexdigest()
+        sha256_hash = hashlib.sha256(text.encode()).hexdigest()
+
+    return render_template('index.html', md5_hash=md5_hash, sha256_hash=sha256_hash)
 
 if __name__ == '__main__':
     app.run(debug=True)
