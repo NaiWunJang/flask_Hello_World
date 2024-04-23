@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>加密結果</title>
+    <title>Hash Function Result</title>
 </head>
 <body>
-    <h1>加密結果</h1>
-    <p>原始消息：{{ message }}</p>
-    <p>公鑰：{{ public_key.to_string().hex() }}</p>
-    <p>簽名：{{ signature.hex() }}</p>
+    <h1>Hash Function Result</h1>
+    <p>Input data: {{ data }}</p>
+    <p>Hashed data: {{ hashed_data }}</p>
+    <a href="/">Back to Home</a>
 </body>
 </html>
