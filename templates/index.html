@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cryptographic Hash Function</title>
+    <title>Hash Functions</title>
 </head>
 <body>
-    <h1>Cryptographic Hash Function Demo</h1>
-    <form action="/hash" method="POST">
-        <label for="text">Enter text:</label><br>
-        <input type="text" id="text" name="text"><br><br>
-        <input type="submit" value="Hash">
+    <h1>Hash Functions Demo</h1>
+    <form action="/hash" method="post">
+        <label for="text">Enter text to hash:</label>
+        <input type="text" id="text" name="text">
+        <button type="submit">Hash</button>
+    </form>
+    <form action="/sha256" method="post">
+        <label for="text">Enter text for SHA-256:</label>
+        <input type="text" id="text" name="text">
+        <button type="submit">SHA-256</button>
     </form>
 </body>
 </html>

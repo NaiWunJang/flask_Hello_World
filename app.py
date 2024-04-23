@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, request, render_template
 import hashlib
 
 app = Flask(__name__)
@@ -8,16 +8,16 @@ def index():
     return render_template('index.html')
 
 @app.route('/hash', methods=['POST'])
-def hash():
-    text = request.form.get('text')
-    hashed_text = hashlib.sha256(text.encode()).hexdigest()
-    return render_template('result.html', title='Cryptographic Hash Function', text=text, hashed_text=hashed_text)
+def hash_text():
+    text = request.form['text']
+    hash_result = hashlib.sha256(text.encode()).hexdigest()
+    return render_template('hash_result.html', text=text, hash_result=hash_result)
 
 @app.route('/sha256', methods=['POST'])
-def sha256():
-    text = request.form.get('text')
-    hashed_text = hashlib.sha256(text.encode()).hexdigest()
-    return render_template('result.html', title='SHA-256 Hash Function', text=text, hashed_text=hashed_text)
+def sha256_text():
+    text = request.form['text']
+    sha256_result = hashlib.sha256(text.encode()).hexdigest()
+    return render_template('sha256_result.html', text=text, sha256_result=sha256_result)
 
 if __name__ == '__main__':
     app.run(debug=True)
