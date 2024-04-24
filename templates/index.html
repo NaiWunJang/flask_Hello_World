@@ -3,20 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cryptographic Hash Function Demo</title>
+    <title>My Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+    </style>
 </head>
 <body>
-    <h1>Cryptographic Hash Function Demo</h1>
-    <form action="/" method="post">
-        <label for="text">Enter text to hash:</label>
-        <input type="text" id="text" name="text">
-        <button type="submit">Hash</button>
-    </form>
-    {% if md5_hash %}
-    <h2>Results:</h2>
-    <p>Text: {{ text }}</p>
-    <p>MD5: {{ md5_hash }}</p>
-    <p>SHA-256: {{ sha256_hash }}</p>
-    {% endif %}
+    <div class="container">
+        <h1>Welcome to My Website</h1>
+        <p>This is a simple website built using Flask.</p>
+        <p>Feel free to explore!</p>
+    </div>
 </body>
 </html>
